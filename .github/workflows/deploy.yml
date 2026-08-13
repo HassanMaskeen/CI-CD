@@ -1,25 +1,23 @@
-
-
 name: Deploy to AWS EC2
 
 on:
- push:
-  branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 
 jobs:
- deploy:
-  runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-steps:
-- name: Checkout Code 
-  uses: actions/checkout@v4
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-- name: Connect and Deploy via SSH
- uses: appleboy/ssh-actions@master
-  with:
-   host: ${{ secrets.SERVER_IP }}
-   username: ubuntu
-   key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-   script: |
-   echo "Connected successfully to AWS Ubuntu server!"
-    sudo apt update
+    - name: Connect and Deploy via SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ubuntu
+        key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+        script: |
+          echo "Connected successfully to AWS Ubuntu server!"
+          sudo apt update
